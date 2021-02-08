@@ -13,7 +13,7 @@ To deploy the service you need docker-compose, you can download it from this lin
 sudo docker-compose up
 ```
 
-### Web
+### WorkSpace
 
 - FacturaScripts
   - Port: 1001
@@ -21,14 +21,14 @@ sudo docker-compose up
   - User: admin
   - Passwd: Admin
 
-### Entorno de desarrollo
+### Development environment
 
 - CodeServer
   - Port: 8081
   - Files: ./config
   - Passwd: 1234
 
-### Acceso a bases de datos
+### Access to databases
 
 - PgAdmin
 
