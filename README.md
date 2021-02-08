@@ -3,11 +3,9 @@
 ## Requirements
 
 To deploy the service you need docker-compose, you can download it from this link for your operating system.
-Docker (Debian 10):
-https://docs.docker.com/engine/install/debian/
 
-Docker-compose (Debian 10):
-https://docs.docker.com/compose/install/
+- Docker (Debian 10): https://docs.docker.com/engine/install/debian/
+- Docker-compose (Debian 10): https://docs.docker.com/compose/install/
 
 ## Get Started
 

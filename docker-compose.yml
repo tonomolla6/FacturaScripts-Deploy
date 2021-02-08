@@ -3,14 +3,13 @@ version: "3.3"
 services:
   code-server:
     image: linuxserver/code-server:version-v3.8.1
-    container_name: "CodeServer_container"
+    container_name: code-server_service
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
       - PASSWORD=1234
       - SUDO_PASSWORD=1234
-      # - PROXY_DOMAIN=code-server.my.domain
     volumes:
       - ./config:/config
       - ./facturascripts:/config/workspace/
@@ -20,22 +19,22 @@ services:
       - 8443:8443
     restart: unless-stopped
     networks:
-      - network
+      - facturascripts_deploy
 
   postgresql:
     image: postgres:13
-    container_name: "PostgreSQL_container"
+    container_name: postgresql_service
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123456789
     networks:
-      - network
+      - facturascripts_deploy
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: "PgAdmin4_container"
+    container_name: pgadmin_service
     environment:
       PGADMIN_DEFAULT_EMAIL: "tono@fs.es"
       PGADMIN_DEFAULT_PASSWORD: "1234"
@@ -44,11 +43,11 @@ services:
     depends_on:
       - postgresql
     networks:
-      - network
+      - facturascripts_deploy
 
   facturascripts:
     image: facturascripts/facturascripts:2021
-    container_name: "FacturaScripts_container"
+    container_name: facturascripts_service
     restart: always
     ports:
       - 1001:80
@@ -57,7 +56,7 @@ services:
     depends_on:
       - postgresql
     networks:
-      - network
+      - facturascripts_deploy
 
 networks:
-  network:
+  facturascripts_deploy:
