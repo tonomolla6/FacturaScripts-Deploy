@@ -16,7 +16,7 @@ services:
     depends_on:
       - facturascripts
     ports:
-      - 8443:8443
+      - 8081:8443
     restart: unless-stopped
     networks:
       - facturascripts_deploy
@@ -39,7 +39,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: "tono@fs.es"
       PGADMIN_DEFAULT_PASSWORD: "1234"
     ports:
-      - 6969:80
+      - 8082:80
     depends_on:
       - postgresql
     networks:
