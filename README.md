@@ -7,6 +7,16 @@ To deploy the service you need docker-compose, you can download it from this lin
 - Docker (Debian 10): https://docs.docker.com/engine/install/debian/
 - Docker-compose (Debian 10): https://docs.docker.com/compose/install/
 
+## Clean Script
+
+Makes volumes & containers prune
+
+--all | -a option removes all existing containers
+
+```sh
+sudo ./scripts/clean.sh
+```
+
 ## Get Started
 
 ```sh
