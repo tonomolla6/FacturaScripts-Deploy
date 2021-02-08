@@ -1,0 +1,5 @@
+CHANGE LOGO: /usr/lib/code-server/lib/vscode/resources/linux/code.png
+CHANGE ICONS: /usr/lib/code-server/src/browser/media
+
+REBUILD LOGIN SCREEN: /usr/lib/code-server/src/browser/pages/login.html
+MODIFY: /usr/lib/code-server/src/browser/pages/error.html
