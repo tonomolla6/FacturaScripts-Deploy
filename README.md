@@ -10,7 +10,12 @@ To deploy the service you need docker-compose, you can download it from this lin
 ## Clean Script
 
 Makes volumes & containers prune
+
 --all | -a option removes all existing containers
+
+```sh
+sudo ./scripts/clean.sh
+```
 
 ## Get Started
 
