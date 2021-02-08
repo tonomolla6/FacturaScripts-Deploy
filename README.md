@@ -10,7 +10,7 @@ To deploy the service you need docker-compose, you can download it from this lin
 ## Get Started
 
 ```sh
-    sudo docker-compose up
+sudo docker-compose up
 ```
 
 ### Web

@@ -4,6 +4,8 @@ services:
   code-server:
     image: linuxserver/code-server:version-v3.8.1
     container_name: code-server_service
+    ports:
+      - 8081:8443
     environment:
       - PUID=1000
       - PGID=1000
@@ -15,9 +17,6 @@ services:
       - ./facturascripts:/config/workspace/
     depends_on:
       - facturascripts
-    ports:
-      - 8081:8443
-    restart: unless-stopped
     networks:
       - facturascripts_deploy
 
@@ -25,21 +24,22 @@ services:
     image: postgres:13
     container_name: postgresql_service
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123456789
+    restart: always
     networks:
       - facturascripts_deploy
 
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:4.30
     container_name: pgadmin_service
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "tono@fs.es"
-      PGADMIN_DEFAULT_PASSWORD: "1234"
     ports:
       - 8082:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=tono@fs.es
+      - PGADMIN_DEFAULT_PASSWORD=1234
     depends_on:
       - postgresql
     networks:
@@ -48,11 +48,11 @@ services:
   facturascripts:
     image: facturascripts/facturascripts:2021
     container_name: facturascripts_service
-    restart: always
     ports:
       - 1001:80
     volumes:
       - ./facturascripts:/var/www/html
+    restart: always
     depends_on:
       - postgresql
     networks:
