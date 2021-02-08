@@ -2,10 +2,10 @@ version: "3.3"
 
 services:
   code-server:
-    image: linuxserver/code-server:version-v3.8.1
+    image: codercom/code-server:latest
     container_name: code-server_service
     ports:
-      - 8081:8443
+      - 8080:8080
     environment:
       - PUID=1000
       - PGID=1000
@@ -13,8 +13,7 @@ services:
       - PASSWORD=1234
       - SUDO_PASSWORD=1234
     volumes:
-      - ./config:/config
-      - ./facturascripts:/config/workspace/
+      - ./facturascripts:/home/coder
     depends_on:
       - facturascripts
     networks:
@@ -36,7 +35,7 @@ services:
     image: dpage/pgadmin4:4.30
     container_name: pgadmin_service
     ports:
-      - 8082:80
+      - 8081:80
     environment:
       - PGADMIN_DEFAULT_EMAIL=tono@fs.es
       - PGADMIN_DEFAULT_PASSWORD=1234
