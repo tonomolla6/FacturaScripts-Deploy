@@ -1,5 +1,6 @@
-docker volume prune
-docker container prune
+#!/bin/bash
+docker volume prune --force
+docker container prune --force
 
 if [ "$1" = "-a" ] | [ "$1" = "--all" ]; then
     containers="$(docker container list | cut -d" " -f1)"
