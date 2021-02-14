@@ -1,0 +1,208 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code · Login</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            --monaco-monospace-font: Consolas,"Courier New",monospace;
+            font-family: Segoe WPC,Segoe UI,sans-serif;
+        }
+        .main {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            grid-template-rows: 35px 1fr;
+        }
+        .left-tool-bar {
+            width: 100%;
+            grid-row: 1 / 3;
+            background: #333333;
+        }
+        .top-nav-bar {
+            width: 100%;
+            grid-row: 1 / 2;
+            background: #252526;
+        }
+        
+        .tab {
+            width: 120px;
+            height: 100%;
+            background: #1e1e1e;
+            font-size: 13px;
+            line-height: 1.4em;
+            color: #ccc;
+            align-items: center;
+            
+            position: relative;
+            display: flex;
+            white-space: nowrap;
+            cursor: pointer;
+            height: 35px;
+            box-sizing: border-box;
+            padding-left: 10px;
+        }
+        .login-tab::before {
+            content: " ";
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg id='Layer_1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cstyle%3E.st0{fill:%23f6f6f6;fill-opacity:0}.st1{fill:%23fff}.st2{fill:%23167abf}%3C/style%3E%3Cpath class='st0' d='M1024 1024H0V0h1024v1024z'/%3E%3Cpath class='st1' d='M1024 85.333v853.333H0V85.333h1024z'/%3E%3Cpath class='st2' d='M0 85.333h298.667v853.333H0V85.333zm1024 0v853.333H384V85.333h640zm-554.667 160h341.333v-64H469.333v64zm341.334 533.334H469.333v64h341.333l.001-64zm128-149.334H597.333v64h341.333l.001-64zm0-149.333H597.333v64h341.333l.001-64zm0-149.333H597.333v64h341.333l.001-64z'/%3E%3C/svg%3E");
+            background-size: 16px;
+            background-position: 0;
+            background-repeat: no-repeat;
+            padding-right: 6px;
+            width: 16px;
+            height: 22px;
+            line-height: inherit !important;
+            display: inline-block;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            vertical-align: top;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .content-tab {
+            grid-row: 2 / 3;
+            grid-column: 2 / 3;
+            background: #1e1e1e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+        form {
+            width: 100%;
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+        }
+        form .field.user {
+            display: none;
+        }
+        form .field {
+            padding: 5px 10px;
+        }
+        form .submit {
+            width: fit-content;
+            width: -moz-fit-content;
+            padding: 5px 10px;
+            margin: 4px 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: rgb(255, 255, 255);
+            background-color: rgb(0, 122, 204);
+            text-decoration: none;
+            box-sizing: border-box;
+            /* display: flex;
+            width: 100%; */
+            padding: 4px;
+            text-align: center;
+            cursor: pointer;
+            outline-offset: 2px!important;
+            justify-content: center;
+            align-items: center;
+            font-size: 13px;
+            line-height: 1.4em;
+            white-space: nowrap;
+        }
+
+        .error {
+            color: white;
+        }
+    </style>
+    <link rel="icon" href="{{CS_STATIC_BASE}}/src/browser/media/favicon-dark-support.svg" />
+    <link rel="alternate icon" href="{{CS_STATIC_BASE}}/src/browser/media/favicon.ico" />
+    <link rel="manifest" href="{{CS_STATIC_BASE}}/src/browser/media/manifest.json" crossorigin="use-credentials" />
+    <link rel="apple-touch-icon" sizes="192x192" href="{{CS_STATIC_BASE}}/src/browser/media/pwa-icon-192.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="{{CS_STATIC_BASE}}/src/browser/media/pwa-icon-512.png" />
+    <meta id="coder-options" data-settings="{{OPTIONS}}" />
+</head>
+<body>
+    <div class="main">
+        <div class="left-tool-bar"></div>
+        <div class="top-nav-bar">
+            <div class="tab login-tab">Login</div>
+        </div>
+        <div class="content-tab">
+            <form class="login-form" method="post">
+                <input class="field user" type="text" autocomplete="username" />
+                <input id="base" type="hidden" name="base" value="/" />
+                <div class="field">
+                  <input
+                    required
+                    autofocus
+                    class="field password"
+                    type="password"
+                    placeholder="PASSWORD"
+                    name="password"
+                    autocomplete="current-password"
+                  />
+                  <input class="submit -button" value="SUBMIT" type="submit" />
+                </div>
+                <div class="error">
+                    {{ERROR}}
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="style-src 'self'; script-src 'self' 'unsafe-inline'; manifest-src 'self'; img-src 'self' data:; font-src 'self' data:;"
+    />
+    <title>code-server login</title>
+    <link rel="icon" href="{{CS_STATIC_BASE}}/src/browser/media/favicon-dark-support.svg" />
+    <link rel="alternate icon" href="{{CS_STATIC_BASE}}/src/browser/media/favicon.ico" />
+    <link rel="manifest" href="{{CS_STATIC_BASE}}/src/browser/media/manifest.json" crossorigin="use-credentials" />
+    <link rel="apple-touch-icon" sizes="192x192" href="{{CS_STATIC_BASE}}/src/browser/media/pwa-icon-192.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="{{CS_STATIC_BASE}}/src/browser/media/pwa-icon-512.png" />
+    <link href="{{CS_STATIC_BASE}}/dist/register.css" rel="stylesheet" />
+    <meta id="coder-options" data-settings="{{OPTIONS}}" />
+  </head>
+  <body>
+    <div class="center-container">
+      <div class="card-box">
+        <div class="header">
+          <h1 class="main">Welcome to code-server</h1>
+          <div class="sub">Please log in below. {{PASSWORD_MSG}}</div>
+        </div>
+        <div class="content">
+          <form class="login-form" method="post">
+            <input class="user" type="text" autocomplete="username" />
+            <input id="base" type="hidden" name="base" value="/" />
+            <div class="field">
+              <input
+                required
+                autofocus
+                class="password"
+                type="password"
+                placeholder="PASSWORD"
+                name="password"
+                autocomplete="current-password"
+              />
+              <input class="submit -button" value="SUBMIT" type="submit" />
+            </div>
+            {{ERROR}}
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script data-cfasync="false" src="{{CS_STATIC_BASE}}/dist/register.js"></script>
+  <script data-cfasync="false" src="{{CS_STATIC_BASE}}/dist/pages/login.js"></script>
+</html> -->

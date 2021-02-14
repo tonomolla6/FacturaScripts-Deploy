@@ -19,6 +19,7 @@ services:
     volumes:
       - ./config:/home/coder/.config 
       - ./project:/home/coder/project
+      - ./app/login.html:/usr/lib/code-server/src/browser/pages/login.html
       # - ./config:/config
       # - ./facturascripts:/config/workspace/
     depends_on:

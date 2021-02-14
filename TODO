@@ -3,3 +3,10 @@ CHANGE ICONS: /usr/lib/code-server/src/browser/media
 
 REBUILD LOGIN SCREEN: /usr/lib/code-server/src/browser/pages/login.html
 MODIFY: /usr/lib/code-server/src/browser/pages/error.html
+
+COLORES:
+- BACKGROUND: #1e1e1e
+- ACCENT: #3794ff
+- NAVBAR LEFT: #333333
+- NAVBAR TOP: #252526
+- CARD: #181818
