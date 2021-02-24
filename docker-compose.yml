@@ -1,61 +1,100 @@
-version: "3.3"
-
+version: '3.6'
 services:
-  code-server:
-    image: codercom/code-server:latest
-    container_name: code-server_service
-    ports:
-      - 8080:8080
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Spain
-      - PASSWORD=1234
-      - SUDO_PASSWORD=1234
-    volumes:
-      - ./facturascripts:/home/coder
-    depends_on:
-      - facturascripts
-    networks:
-      - facturascripts_deploy
-
-  postgresql:
-    image: postgres:13
-    container_name: postgresql_service
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=123456789
-    restart: always
-    networks:
-      - facturascripts_deploy
-
-  pgadmin:
-    image: dpage/pgadmin4:4.30
-    container_name: pgadmin_service
-    ports:
-      - 8081:80
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=tono@fs.es
-      - PGADMIN_DEFAULT_PASSWORD=1234
-    depends_on:
-      - postgresql
-    networks:
-      - facturascripts_deploy
-
-  facturascripts:
-    image: facturascripts/facturascripts:2021
-    container_name: facturascripts_service
+  # Server
+  nginx:
+    image: nginx:latest
+    container_name: nginx_container
     ports:
       - 1001:80
     volumes:
-      - ./facturascripts:/var/www/html
-    restart: always
+      - ./config/virtualhosts/:/etc/nginx/conf.d
+      - ./data/webs/:/var/www/
+      - ./data/logs/:/var/log/nginx/
+    depends_on:
+      - php8
+
+
+  # Dependences
+  php8:
+    build: config/dependences/php8/. # php:8.0.2-fpm
+    container_name: php8_container
+    environment:
+      MAX_INPUT_VARS: 1000
+    volumes:
+      - ./data/webs/:/var/www/
     depends_on:
       - postgresql
-    networks:
-      - facturascripts_deploy
+      - mysql
+
+  # Databases
+  postgresql:
+    image: postgres:13
+    container_name: postgresql_container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./config/databases/postgresql:/var/lib/postgresql/data/pgdata
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql_container
+    environment:
+      MYSQL_DATABASE: gestiweb
+      MYSQL_USER: tono
+      MYSQL_PASSWORD: 123456789
+      MYSQL_ROOT_PASSWORD: 123456789
+    volumes:
+      - ./config/databases/mysql:/var/lib/mysql
+
+  # Development programs
+  pgadmin:
+    image: dpage/pgadmin4:4.30
+    container_name: pgadmin_container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: tono@gestiweb.com
+      PGADMIN_DEFAULT_PASSWORD: 1234
+    ports:
+      - 4000:80
+    logging:
+      driver: none 
+    volumes:
+      - ./config/pgadmin/:/var/lib/pgadmin
+    depends_on:
+      - postgresql
+
+  portainer:
+    image: portainer/portainer:latest
+    command: -H unix:///var/run/docker.sock
+    container_name: portainer_container
+    restart: always
+    ports:
+      - 9000:9000
+    logging:
+      driver: none 
+    volumes:
+      # Configuration valid only for linux systems
+      - ./config/development/portainer/:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  code-server:
+    image: codercom/code-server:3.9.0
+    container_name: codeserver_container
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Spain
+      PASSWORD: 1234
+      SUDO_PASSWORD: 1234
+    ports:
+      - 8080:8080
+    logging:
+      driver: none 
+    volumes:
+      - ./data/:/home/coder
+    depends_on:
+      - nginx
 
 networks:
-  facturascripts_deploy:
+  databases:

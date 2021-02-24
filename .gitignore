@@ -1,2 +1,12 @@
-config
-facturascripts
+# Configuration Code Server
+./data/.config
+./data/.local
+
+# MySql and Postgresql data
+./config/databases
+
+# Logs Nginx
+./data/logs
+
+# Webs
+./data/webs
