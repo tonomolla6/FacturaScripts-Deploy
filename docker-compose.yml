@@ -93,8 +93,8 @@ services:
       driver: none 
     volumes:
       - ./data/webs/:/home/coder/webs
-      - ./config/development/codeserver/:/home/coder/.config
-      - ./config/development/codeserver/:/home/coder/.local
+      - ./config/development/codeserver/.config:/home/coder/.config
+      - ./config/development/codeserver/.local:/home/coder/.local
     depends_on:
       - nginx
 
