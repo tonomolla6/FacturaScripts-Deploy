@@ -60,7 +60,7 @@ services:
     logging:
       driver: none 
     volumes:
-      - ./config/pgadmin/:/var/lib/pgadmin
+      - ./config/development/pgadmin/:/var/lib/pgadmin
     depends_on:
       - postgresql
 
@@ -92,7 +92,9 @@ services:
     logging:
       driver: none 
     volumes:
-      - ./data/:/home/coder
+      - ./data/webs/:/home/coder/webs
+      - ./config/development/codeserver/:/home/coder/.config
+      - ./config/development/codeserver/:/home/coder/.local
     depends_on:
       - nginx
 
