@@ -13,3 +13,6 @@ config/databases
 
 # Logs Nginx
 data/logs
+
+# Plugins
+Plugins
